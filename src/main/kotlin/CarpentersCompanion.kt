@@ -4,7 +4,10 @@ class CarpentersCompanion {
 
         if (piece.width <= boardWidth && piece.length <= boardLength) {
             numberOfBoardsRequired += 1
+        } else {
+            numberOfBoardsRequired += 2
         }
+
          return numberOfBoardsRequired
     }
 }
