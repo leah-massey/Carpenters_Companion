@@ -1,6 +1,11 @@
 class CarpentersCompanion {
     fun calculateBoardsRequired(piece: Piece, boardLength: Int, boardWidth: Int): Int {
-        return 1
+        var numberOfBoardsRequired = 0
+
+        if (piece.width <= boardWidth && piece.length <= boardLength) {
+            numberOfBoardsRequired += 1
+        }
+         return numberOfBoardsRequired
     }
 }
 
