@@ -104,29 +104,22 @@ class CarpentersCompanionTest() {
         assertEquals(expected, actual)
     }
 
-//    @Test
-//    fun `given a required piece whose width is that of a standard board but whose length is 1point5 x a standard board then half a board remains in the board store`() {
-//        val piece = Piece(length = 750, width = 75)
-//        val boardLength = 500
-//        val boardWidth = 50
-//        val underTest = CarpentersCompanion()
-//
-//        val expected = 4
-//        val actual = underTest.calculateBoardsRequired(
-//            piece = piece,
-//            boardLength = boardLength,
-//            boardWidth = boardWidth
-//        )
-//
-//        assertEquals(expected, actual)
-//    }
+    @Test
+    fun `given a required piece whose width is that of a standard board but whose length is 1point5 x a standard board then half a board remains in the board store`() {
+        val piece = Piece(length = 750, width = 50)
+        val boardLength = 500
+        val boardWidth = 50
+        val underTest = CarpentersCompanion()
 
+        underTest.calculateBoardsRequired(
+            piece = piece,
+            boardLength = boardLength,
+            boardWidth = boardWidth
+        )
 
+        val expected = listOf(Board(length = 250, width = 50))
+        val actual = underTest.boardStore
 
-
-
-    // test that excess wood is added to stock
-
-
-
+        assertEquals(expected, actual)
+    }
 }

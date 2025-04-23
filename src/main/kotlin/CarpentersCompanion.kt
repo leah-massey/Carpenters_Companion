@@ -1,30 +1,59 @@
 class CarpentersCompanion {
+    var boardStore: List<Board> = mutableListOf()
+
     fun calculateBoardsRequired(piece: Piece, boardLength: Int, boardWidth: Int): Int {
-        var numberOfBoardsRequired = 0
+        var numberOfBoardsAddedToUse: Int = 0
+
 
         val boardsRequiredForLength: Int = Math.ceil(piece.length.toDouble() / boardLength).toInt()
-        val leftoverFromBoardsRequiredForLength = piece.length % boardLength // this will have full width
+        val leftoverFromBoardsRequiredForLength = Board(length = piece.length % boardLength, width = boardWidth)
 
         val boardsRequiredForWidth: Int = Math.ceil(piece.width.toDouble() / boardWidth).toInt()
-        val leftoverFromBoardsRequiredForWidth = piece.width % boardWidth // this will have full board length
+        val leftoverFromBoardsRequiredForWidth = Board( length = boardLength, width = piece.width % boardWidth)
 
-        val fullboardsRequired = if ( leftoverFromBoardsRequiredForLength == 0  ) boardsRequiredForLength else (boardsRequiredForLength -1)
+        println(leftoverFromBoardsRequiredForWidth)
+
+
+        // do I need this?
+        val fullboardQuantRequired: Int =
+            if ( leftoverFromBoardsRequiredForLength.length == 0  && leftoverFromBoardsRequiredForWidth.width == 0) {
+            boardsRequiredForLength + boardsRequiredForWidth
+        } else if (leftoverFromBoardsRequiredForLength.length == 0) {
+            boardsRequiredForLength + (boardsRequiredForWidth - 1)
+        } else  { //(leftoverFromBoardsRequiredForWidth.width == 0)
+            boardsRequiredForWidth + (boardsRequiredForLength - 1)
+        }
+
+        if (leftoverFromBoardsRequiredForLength.length != 0) {
+            boardStore += leftoverFromBoardsRequiredForLength
+        }
+
+        if (leftoverFromBoardsRequiredForWidth.width != 0 ) {
+            boardStore += leftoverFromBoardsRequiredForWidth
+        }
+
+
+
+
+
+
 
         if (piece.length > boardLength && piece.width > boardWidth) {
-            numberOfBoardsRequired += boardsRequiredForLength
-            numberOfBoardsRequired += boardsRequiredForWidth
+            numberOfBoardsAddedToUse += boardsRequiredForLength
+            numberOfBoardsAddedToUse += boardsRequiredForWidth
         }
         else if (piece.length > boardLength) {
-            numberOfBoardsRequired += boardsRequiredForLength
+            numberOfBoardsAddedToUse += boardsRequiredForLength
         } else if (piece.width > boardWidth) {
-            numberOfBoardsRequired += boardsRequiredForWidth
+            numberOfBoardsAddedToUse += boardsRequiredForWidth
         } else { // piece.width <= boardWidth && piece.length <= boardLength
-            numberOfBoardsRequired += 1
+            numberOfBoardsAddedToUse += 1
         }
 
-         return numberOfBoardsRequired
+         return numberOfBoardsAddedToUse
     }
 
 }
 
 data class Piece(val length: Int, val width: Int)
+data class Board(val length: Int, val width: Int)
