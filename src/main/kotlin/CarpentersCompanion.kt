@@ -10,12 +10,16 @@ class CarpentersCompanion {
 
         val fullboardsRequired = if ( leftoverFromBoardsRequiredForLength == 0  ) boardsRequiredForLength else (boardsRequiredForLength -1)
 
-        if (piece.width <= boardWidth && piece.length <= boardLength) {
-            numberOfBoardsRequired += 1
-        } else if (piece.length > boardLength) {
+        if (piece.length > boardLength && piece.width > boardWidth) {
             numberOfBoardsRequired += boardsRequiredForLength
-        } else {
             numberOfBoardsRequired += boardsRequiredForWidth
+        }
+        else if (piece.length > boardLength) {
+            numberOfBoardsRequired += boardsRequiredForLength
+        } else if (piece.width > boardWidth) {
+            numberOfBoardsRequired += boardsRequiredForWidth
+        } else { // piece.width <= boardWidth && piece.length <= boardLength
+            numberOfBoardsRequired += 1
         }
 
          return numberOfBoardsRequired
