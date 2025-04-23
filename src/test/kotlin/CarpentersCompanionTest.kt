@@ -122,4 +122,24 @@ class CarpentersCompanionTest() {
 
         assertEquals(expected, actual)
     }
+
+    @Test
+    fun `given a required piece whose width 1point5 x a standard board and whose length is 1point5 x a standard board then half a board length remains in the board store and a full board length of half width remains in the board store`() {
+        val piece = Piece(length = 750, width = 75)
+        val boardLength = 500
+        val boardWidth = 50
+        val underTest = CarpentersCompanion()
+
+        underTest.calculateBoardsRequired(
+            piece = piece,
+            boardLength = boardLength,
+            boardWidth = boardWidth
+        )
+
+        val expected = listOf(Board(length = 250, width = 50), Board(length = 500, width = 25))
+        val actual = underTest.boardStore
+
+        assertEquals(expected, actual)
+    }
+
 }
