@@ -2,15 +2,20 @@ class CarpentersCompanion {
     fun calculateBoardsRequired(piece: Piece, boardLength: Int, boardWidth: Int): Int {
         var numberOfBoardsRequired = 0
 
-        val boardsRequired: Int = Math.ceil(piece.length.toDouble() / boardLength).toInt()
-        val leftoverFromBoardsRequired = piece.length % boardLength
+        val boardsRequiredForLength: Int = Math.ceil(piece.length.toDouble() / boardLength).toInt()
+        val leftoverFromBoardsRequiredForLength = piece.length % boardLength // this will have full width
 
-        val fullboardsRequired = if ( leftoverFromBoardsRequired == 0  ) boardsRequired else (boardsRequired -1)
+        val boardsRequiredForWidth: Int = Math.ceil(piece.width.toDouble() / boardWidth).toInt()
+        val leftoverFromBoardsRequiredForWidth = piece.width % boardWidth // this will have full board length
+
+        val fullboardsRequired = if ( leftoverFromBoardsRequiredForLength == 0  ) boardsRequiredForLength else (boardsRequiredForLength -1)
 
         if (piece.width <= boardWidth && piece.length <= boardLength) {
             numberOfBoardsRequired += 1
+        } else if (piece.length > boardLength) {
+            numberOfBoardsRequired += boardsRequiredForLength
         } else {
-            numberOfBoardsRequired += boardsRequired
+            numberOfBoardsRequired += boardsRequiredForWidth
         }
 
          return numberOfBoardsRequired
