@@ -53,5 +53,23 @@ class CarpentersCompanionTest() {
         assertEquals(expected, actual)
     }
 
+    @Test
+    fun `given a required piece whose width is that of a standard board but whose length is more than double the length of a standard board, then multiple boards are required`() {
+        val piece = Piece(length = 1100, width = 50)
+        val boardLength = 500
+        val boardWidth = 50
+        val underTest = CarpentersCompanion()
+
+        val expected = 3
+        val actual = underTest.calculateBoardsRequired(
+            piece = piece,
+            boardLength = boardLength,
+            boardWidth = boardWidth
+        )
+
+        assertEquals(expected, actual)
+    }
+
+
 
 }
